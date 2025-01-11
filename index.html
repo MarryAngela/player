@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  	<!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary">
+    <meta property="og:description" content="M3U8およびMP4形式の動画プレーヤーをサポートしています。" />
+    <meta property="og:image" content="https://gigafile.cc/images/og_new_200_60.png" />
+    <meta property="og:image:width" content="250" />
+    <meta property="og:image:height" content="250" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="robots" content="noindex,nofollow,noarchive" />
+    <meta property="og:url" content="https://gigafile.cc/" />
+    <meta property="og:title" content="動画プレーヤー" />
+    <link rel="canonical" href="https://gigafile.cc/" />
+    <meta name="keywords" content="M3U8 プレーヤー, MP4 プレーヤー, オンライン動画再生" />
+    <meta name="description" content="M3U8およびMP4形式の動画プレーヤーをサポートしています。" />
+    <title>動画プレーヤー</title>
+    <meta name="keywords" content="M3U8 プレーヤー, MP4 プレーヤー, オンライン動画再生">
+    <meta name="description" content="M3U8およびMP4形式の動画プレーヤーをサポートしています。">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #ffffff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #video {
+            width: 100%;
+            height: 360px;
+            background: black;
+            margin-bottom: 20px;
+        }
+
+        .form {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .form input {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-right: none;
+            outline: none;
+        }
+
+        .form button {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #007bff;
+            border: 1px solid #ccc;
+            color: white;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .form button:hover {
+            background: #0056b3;
+        }
+
+        .form button svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@1.4.0"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h1 style="text-align: center; color: #333;">動画プレーヤー</h1>
+
+        <!-- 入力フォームとボタン -->
+        <div class="form">
+            <input type="text" id="url-input" placeholder="動画URLを入力してください">
+            <button onclick="play()">
+                <!-- 再生アイコン (SVG) -->
+                <svg viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- 動画プレーヤー -->
+        <video id="video" controls></video>
+    </div>
+
+    <script>
+        const defaultUrl = "https://video.twimg.com/amplify_video/1877925947267338240/pl/I_8Sl7qJqfayxcpV.m3u8?tag=16"; // デフォルトのURL
+
+        function getM3U8Url() {
+            const urlParams = window.location.search;
+            if (urlParams.startsWith('?url=')) {
+                return decodeURIComponent(urlParams.substring(5)); // "?url="を取り除いてURLを取得
+            }
+            return null;
+        }
+
+        // URL修正関数：ユーザーが入力したURLを修正
+        function fixUrl(inputUrl) {
+            if (inputUrl.startsWith('ttps://')) {
+                inputUrl = 'https://' + inputUrl.substring(7);
+            }
+            return inputUrl;
+        }
+
+        function initializePlayer(videoUrl) {
+            const video = document.getElementById('video');
+            const extension = videoUrl.split('.').pop().toLowerCase();
+
+            if (!videoUrl) {
+                alert('無効な動画URLです');
+                return;
+            }
+
+            // m3u8形式の動画を処理
+            if (extension === 'm3u8' || videoUrl.includes('.m3u8')) {
+                if (Hls.isSupported()) {
+                    const hls = new Hls();
+                    hls.loadSource(videoUrl);
+                    hls.attachMedia(video);
+                    hls.on(Hls.Events.MANIFEST_PARSED, function () {
+                        video.play();
+                    });
+                } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                    video.src = videoUrl;
+                    video.addEventListener('loadedmetadata', function () {
+                        video.play();
+                    });
+                } else {
+                    alert("HLS形式の再生はサポートされていません。");
+                }
+            }
+            // mp4形式の動画を処理
+            else if (extension === 'mp4' || videoUrl.includes('.mp4')) {
+                // クエリパラメーター付きの.mp4動画を処理
+                video.src = videoUrl;
+                video.addEventListener('loadedmetadata', function () {
+                    video.play();
+                });
+            } else {
+                alert('サポートされていない形式です');
+            }
+        }
+
+        function play() {
+            let urlInput = document.getElementById('url-input');
+            let videoUrl = urlInput.value.trim() || defaultUrl; // 入力が空の場合、デフォルトURLを使用
+            videoUrl = fixUrl(videoUrl); // URLの修正
+
+            // 入力フォームに修正したURLを反映
+            urlInput.value = videoUrl;
+
+            initializePlayer(videoUrl);
+
+            // 入力されたURLでアドレスバーを更新（デフォルトURLは更新しない）
+            if (urlInput.value.trim() !== "") {
+                window.history.pushState({}, '', `?url=${encodeURIComponent(videoUrl)}`);
+            }
+        }
+
+        // URLパラメーターを確認
+        const videoUrl = getM3U8Url();
+        if (videoUrl) {
+            // URLに動画アドレスが含まれている場合、プレーヤーを初期化し、入力フォームに表示
+            document.getElementById('url-input').value = videoUrl; // 入力フォームにURLを表示
+            initializePlayer(videoUrl); // 動画を再生
+        } else {
+            // パラメーターがない場合、デフォルトURLを設定
+            document.getElementById('url-input').value = defaultUrl;
+            initializePlayer(defaultUrl); // デフォルトURLで動画を再生
+        }
+    </script>
+</body>
+
+</html>

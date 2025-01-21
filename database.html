@@ -1,46 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>提交到 Google 表格</title>
-  <script>
-    async function sendData() {
-      const input = document.getElementById("inputBox").value;
+async function sendData() {
+  const input = document.getElementById("inputBox").value;
 
-      if (!input) {
-        alert("请输入内容！");
-        return;
-      }
+  if (!input) {
+    alert("请输入内容！");
+    return;
+  }
 
-      try {
-        const url = "https://script.google.com/macros/s/AKfycbyuLzFpJVAZSBWxNF4s9iQ1R4047PZjYlz62NQrqUvi5d3YuHTASpEpZDhmSh9Z5Oub/exec";
+  try {
+    const url = "https://script.google.com/macros/s/AKfycbzZmOPED_jiu49SGVszt0GOtgP-QVrEwxIU02Sn6jTBFdzMedMQcLsR4-g5ZaSj6F0/exec";
 
-        const response = await fetch(url, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ name: input }),
-        });
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json", // 必须设置此头部
+        "Origin": "https://player.okazu.cc", // 明确设置Origin
+      },
+      body: JSON.stringify({ name: input }),
+    });
 
-        const result = await response.json();
+    const result = await response.json();
 
-        if (result.status === "success") {
-          alert("成功记录到 Google 表格！");
-          document.getElementById("inputBox").value = ""; // 清空输入框
-        } else {
-          alert("记录失败：" + result.message);
-        }
-      } catch (error) {
-        alert("请求失败：" + error.message);
-      }
+    if (result.status === "success") {
+      alert("成功记录到 Google 表格！");
+      document.getElementById("inputBox").value = ""; // 清空输入框
+    } else {
+      alert("记录失败：" + result.message);
     }
-  </script>
-</head>
-<body>
-  <h1>记录到 Google 表格</h1>
-  <input type="text" id="inputBox" placeholder="输入内容">
-  <button onclick="sendData()">提交</button>
-</body>
-</html>
+  } catch (error) {
+    alert("请求失败：" + error.message);
+  }
+}

@@ -1,32 +1,56 @@
-async function sendData() {
-  const input = document.getElementById("inputBox").value;  // 获取输入框的值
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google 表格数据提交</title>
+</head>
+<body>
 
-  if (!input) {
-    alert("请输入内容！");
-    return;
-  }
+    <h2>输入信息并提交到 Google 表格</h2>
 
-  try {
-    const url = "https://script.google.com/macros/s/AKfycbzZmOPED_jiu49SGVszt0GOtgP-QVrEwxIU02Sn6jTBFdzMedMQcLsR4-g5ZaSj6F0/exec"; // 确保使用正确的 URL
+    <input type="text" id="inputBox" placeholder="请输入内容">
+    <button onclick="sendData()">提交</button>
 
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",  // 必须设置Content-Type
-        "Origin": "https://player.okazu.cc", // 明确设置Origin，避免CORS问题
-      },
-      body: JSON.stringify({ name: input }),  // 传递输入的数据
-    });
+    <script>
+        async function sendData() {
+            const input = document.getElementById("inputBox").value;  // 获取输入框的值
 
-    const result = await response.json();  // 解析返回的JSON结果
+            // 如果输入为空，提示用户输入内容
+            if (!input) {
+                alert("请输入内容！");
+                return;
+            }
 
-    if (result.status === "success") {
-      alert("成功记录到 Google 表格！");
-      document.getElementById("inputBox").value = "";  // 清空输入框
-    } else {
-      alert("记录失败：" + result.message);  // 显示错误信息
-    }
-  } catch (error) {
-    alert("请求失败：" + error.message);  // 捕获请求错误并显示
-  }
-}
+            try {
+                const url = "https://script.google.com/macros/s/AKfycbzZmOPED_jiu49SGVszt0GOtgP-QVrEwxIU02Sn6jTBFdzMedMQcLsR4-g5ZaSj6F0/exec"; // 确保使用最新的 Google Apps Script URL
+
+                // 发送 POST 请求到 Google Apps Script
+                const response = await fetch(url, {
+                    method: "POST",  // 使用 POST 方法
+                    headers: {
+                        "Content-Type": "application/json",  // 设置内容类型为 JSON
+                        "Origin": "https://player.okazu.cc",  // 设置 Origin，避免跨域问题
+                    },
+                    body: JSON.stringify({ name: input }),  // 将输入框的内容作为 JSON 数据发送
+                });
+
+                // 解析返回的 JSON 响应
+                const result = await response.json();
+
+                // 根据响应状态显示提示信息
+                if (result.status === "success") {
+                    alert("成功记录到 Google 表格！");
+                    document.getElementById("inputBox").value = "";  // 清空输入框
+                } else {
+                    alert("记录失败：" + result.message);  // 显示失败原因
+                }
+            } catch (error) {
+                // 如果请求失败，显示错误信息
+                alert("请求失败：" + error.message);
+            }
+        }
+    </script>
+
+</body>
+</html>

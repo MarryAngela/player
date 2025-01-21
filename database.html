@@ -6,6 +6,7 @@
   <title>Submit Data to Google Sheets</title>
 </head>
 <body>
+  <h1>Submit Data to Google Sheets</h1>
   <input type="text" id="inputBox" placeholder="Enter name">
   <button onclick="sendData()">Submit</button>
 
@@ -19,6 +20,8 @@
 
       try {
         const url = "https://script.google.com/macros/s/AKfycbzKtr_TcCGJGqkBC9CE_QbbgR6zCsavfT-oaG3V-gxLmOEzxSVjZhU15HibipgnJDBi/exec";
+        console.log("Sending request to:", url);
+
         const response = await fetch(url, {
           method: "POST",
           headers: {
@@ -27,7 +30,13 @@
           body: JSON.stringify({ name: input }),  // 将输入框的内容作为 JSON 数据发送
         });
 
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
         const result = await response.json();
+        console.log("Response received:", result);
+
         if (result.status === "success") {
           alert("成功记录到 Google 表格！");
           document.getElementById("inputBox").value = "";  // 清空输入框
@@ -35,6 +44,7 @@
           alert("记录失败：" + result.message);
         }
       } catch (error) {
+        console.error("请求失败：", error);
         alert("请求失败：" + error.message);
       }
     }

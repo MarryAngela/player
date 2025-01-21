@@ -6,38 +6,36 @@
   <title>Google 表格数据提交</title>
   <script>
     // 提交数据到 Google 表格
-    async function sendData() {
-      const input = document.getElementById("inputBox").value;
-      if (!input) {
-        alert("请输入内容！");
-        return;
-      }
+async function sendData() {
+  const input = document.getElementById("inputBox").value;
+  if (!input) {
+    alert("请输入内容！");
+    return;
+  }
 
-      try {
-        // 使用您的 Google Apps Script Web 应用 URL
-        const url = "https://script.google.com/macros/s/AKfycbwK5QY_u3_4h0bxoLlsfZ6pyQS8A9iX88SEyoe5_WDcUc2bO4u2lXVDNNH-ruglxVtq/exec";  
-        
-        const response = await fetch(url, {
-          method: "POST",  // 确保使用 POST 请求
-          headers: {
-            "Content-Type": "application/json",  // 请求格式为 JSON
-            "Origin": "https://player.okazu.cc",  // 确保Origin与实际网站一致
-          },
-          body: JSON.stringify({ name: input }),  // 将输入数据作为 JSON 发送
-        });
+  try {
+    const url = "https://script.google.com/macros/s/AKfycbwyZ6orcsNZRgmDtv5NHS4aC7HGefsCfDMph0wg5RKXkV1vpS-ycirWie_X6y-Bp7QO/exec";  // 您的 Web 应用 URL
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",  // 设置请求头为 JSON
+        "Origin": "https://player.okazu.cc",  // 明确指定源，必须与您的网站一致
+      },
+      body: JSON.stringify({ name: input }),  // 将输入的数据以 JSON 发送
+    });
 
-        // 解析 JSON 响应
-        const result = await response.json();
-        if (result.status === "success") {
-          alert("成功记录到 Google 表格！");
-          document.getElementById("inputBox").value = "";  // 清空输入框
-        } else {
-          alert("记录失败：" + result.message);  // 显示失败消息
-        }
-      } catch (error) {
-        alert("请求失败：" + error.message);  // 请求失败时显示错误信息
-      }
+    const result = await response.json();
+    if (result.status === "success") {
+      alert("成功记录到 Google 表格！");
+      document.getElementById("inputBox").value = "";  // 清空输入框
+    } else {
+      alert("记录失败：" + result.message);
     }
+  } catch (error) {
+    alert("请求失败：" + error.message);
+  }
+}
+
   </script>
 </head>
 <body>

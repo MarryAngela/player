@@ -6,36 +6,33 @@
   <title>提交数据到 Google 表格</title>
   <script>
     async function sendData() {
-      const input = document.getElementById("inputBox").value;
+      const input = document.getElementById("inputBox").value;  // 获取输入框的值
       if (!input) {
-        alert("请输入内容！");
+        alert("请输入内容！");  // 输入框为空时提醒
         return;
       }
 
       try {
-        // Google Apps Script Web 应用 URL
-        const url = "https://script.google.com/macros/s/AKfycbyt6hxIkm97Ux6wEewY7nfHQyPlzeJ8yo_qQsuViShjduzPCHoECvVfTkB_J12T0e1o/exec";  
+        const url = "https://script.google.com/macros/s/AKfycbwyZ6orcsNZRgmDtv5NHS4aC7HGefsCfDMph0wg5RKXkV1vpS-ycirWie_X6y-Bp7QO/exec";  // Google Apps Script Web 应用 URL
 
-        // 确保请求方法是 POST
         const response = await fetch(url, {
-          method: "POST",  // 请求方法
+          method: "POST",  // 确保请求方法是 POST
           headers: {
-            "Content-Type": "application/json",  // 请求头，确保传递的是 JSON 格式
+            "Content-Type": "application/json",  // 设置请求头，告诉服务器我们发送的是 JSON 格式数据
             "Origin": "https://player.okazu.cc",  // 明确指定来源，避免跨域问题
           },
-          body: JSON.stringify({ name: input }),  // 请求体内容
+          body: JSON.stringify({ name: input }),  // 将输入框的值作为 JSON 数据发送
         });
 
-        // 获取响应并解析
-        const result = await response.json();
+        const result = await response.json();  // 解析返回的 JSON 数据
         if (result.status === "success") {
           alert("成功记录到 Google 表格！");
           document.getElementById("inputBox").value = "";  // 清空输入框
         } else {
-          alert("记录失败：" + result.message);  // 显示失败信息
+          alert("记录失败：" + result.message);  // 显示错误信息
         }
       } catch (error) {
-        alert("请求失败：" + error.message);  // 显示错误信息
+        alert("请求失败：" + error.message);  // 如果请求失败，显示错误信息
       }
     }
   </script>

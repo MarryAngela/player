@@ -1,46 +1,43 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>提交数据到 Google 表格</title>
+  <title>Submit Data to Google Sheets</title>
+</head>
+<body>
+  <input type="text" id="inputBox" placeholder="Enter name">
+  <button onclick="sendData()">Submit</button>
+
   <script>
     async function sendData() {
-      const input = document.getElementById("inputBox").value;  // 获取输入框的值
+      const input = document.getElementById("inputBox").value;
       if (!input) {
-        alert("请输入内容！");  // 输入框为空时提醒
+        alert("请输入内容！");
         return;
       }
 
       try {
-        const url = "https://script.google.com/macros/s/AKfycbwyZ6orcsNZRgmDtv5NHS4aC7HGefsCfDMph0wg5RKXkV1vpS-ycirWie_X6y-Bp7QO/exec";  // Google Apps Script Web 应用 URL
-
+        const url = "https://script.google.com/macros/s/AKfycbxY1G1OXQU7KWNS9zltxDSmvgQ0Bt11Dsm1UzihKQxB_t1-8h6aJkp9iFklaBvpcmk1/exec";
         const response = await fetch(url, {
-          method: "POST",  // 确保请求方法是 POST
+          method: "POST",
           headers: {
-            "Content-Type": "application/json",  // 设置请求头，告诉服务器我们发送的是 JSON 格式数据
-            "Origin": "https://player.okazu.cc",  // 明确指定来源，避免跨域问题
+            "Content-Type": "application/json",  // 设置内容类型
           },
-          body: JSON.stringify({ name: input }),  // 将输入框的值作为 JSON 数据发送
+          body: JSON.stringify({ name: input }),  // 将输入框的内容作为 JSON 数据发送
         });
 
-        const result = await response.json();  // 解析返回的 JSON 数据
+        const result = await response.json();
         if (result.status === "success") {
           alert("成功记录到 Google 表格！");
           document.getElementById("inputBox").value = "";  // 清空输入框
         } else {
-          alert("记录失败：" + result.message);  // 显示错误信息
+          alert("记录失败：" + result.message);
         }
       } catch (error) {
-        alert("请求失败：" + error.message);  // 如果请求失败，显示错误信息
+        alert("请求失败：" + error.message);
       }
     }
   </script>
-</head>
-<body>
-  <h1>提交数据到 Google 表格</h1>
-  <label for="inputBox">请输入数据：</label>
-  <input type="text" id="inputBox" placeholder="输入内容">
-  <button onclick="sendData()">提交</button>
 </body>
 </html>

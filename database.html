@@ -1,5 +1,5 @@
 async function sendData() {
-  const input = document.getElementById("inputBox").value;
+  const input = document.getElementById("inputBox").value;  // 获取输入框的值
 
   if (!input) {
     alert("请输入内容！");
@@ -7,26 +7,26 @@ async function sendData() {
   }
 
   try {
-    const url = "https://script.google.com/macros/s/AKfycbzZmOPED_jiu49SGVszt0GOtgP-QVrEwxIU02Sn6jTBFdzMedMQcLsR4-g5ZaSj6F0/exec";
+    const url = "https://script.google.com/macros/s/AKfycbzZmOPED_jiu49SGVszt0GOtgP-QVrEwxIU02Sn6jTBFdzMedMQcLsR4-g5ZaSj6F0/exec"; // 确保使用正确的 URL
 
     const response = await fetch(url, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json", // 必须设置此头部
-        "Origin": "https://player.okazu.cc", // 明确设置Origin
+        "Content-Type": "application/json",  // 必须设置Content-Type
+        "Origin": "https://player.okazu.cc", // 明确设置Origin，避免CORS问题
       },
-      body: JSON.stringify({ name: input }),
+      body: JSON.stringify({ name: input }),  // 传递输入的数据
     });
 
-    const result = await response.json();
+    const result = await response.json();  // 解析返回的JSON结果
 
     if (result.status === "success") {
       alert("成功记录到 Google 表格！");
-      document.getElementById("inputBox").value = ""; // 清空输入框
+      document.getElementById("inputBox").value = "";  // 清空输入框
     } else {
-      alert("记录失败：" + result.message);
+      alert("记录失败：" + result.message);  // 显示错误信息
     }
   } catch (error) {
-    alert("请求失败：" + error.message);
+    alert("请求失败：" + error.message);  // 捕获请求错误并显示
   }
 }

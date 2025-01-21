@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Google 表格数据提交</title>
+  <title>提交数据到 Google 表格</title>
   <script>
-    // 提交数据到 Google 表格
     async function sendData() {
       const input = document.getElementById("inputBox").value;
       if (!input) {
@@ -14,29 +13,29 @@
       }
 
       try {
-        // 使用您的 Google Apps Script Web 应用 URL
-        const url = "https://script.google.com/macros/s/AKfycbwyZ6orcsNZRgmDtv5NHS4aC7HGefsCfDMph0wg5RKXkV1vpS-ycirWie_X6y-Bp7QO/exec";  
-        
-        // 确保方法是 POST，headers 设置为 Content-Type 为 application/json
+        // Google Apps Script Web 应用 URL
+        const url = "https://script.google.com/macros/s/AKfycbxKcn9ZXxa4vbrbxubmXs51dYlmyRvtrtPvHssJQnowGXpCJyucVSN07qkfz0UoyQV_/exec";  
+
+        // 确保请求方法是 POST
         const response = await fetch(url, {
-          method: "POST",  // 确保使用 POST 请求
+          method: "POST",  // 请求方法
           headers: {
-            "Content-Type": "application/json",  // 请求格式为 JSON
-            "Origin": "https://player.okazu.cc",  // 明确设置 Origin（根据您自己的域名）
+            "Content-Type": "application/json",  // 请求头，确保传递的是 JSON 格式
+            "Origin": "https://player.okazu.cc",  // 明确指定来源，避免跨域问题
           },
-          body: JSON.stringify({ name: input }),  // 将输入数据作为 JSON 发送
+          body: JSON.stringify({ name: input }),  // 请求体内容
         });
 
-        // 解析 JSON 响应
+        // 获取响应并解析
         const result = await response.json();
         if (result.status === "success") {
           alert("成功记录到 Google 表格！");
           document.getElementById("inputBox").value = "";  // 清空输入框
         } else {
-          alert("记录失败：" + result.message);  // 显示失败消息
+          alert("记录失败：" + result.message);  // 显示失败信息
         }
       } catch (error) {
-        alert("请求失败：" + error.message);  // 请求失败时显示错误信息
+        alert("请求失败：" + error.message);  // 显示错误信息
       }
     }
   </script>

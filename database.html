@@ -1,29 +1,47 @@
-async function sendData() {
-    const input = document.getElementById("inputBox").value;
-    if (!input) {
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google 表格数据提交</title>
+  <script>
+    async function sendData() {
+      const input = document.getElementById("inputBox").value;
+      if (!input) {
         alert("请输入内容！");
         return;
-    }
+      }
 
-    try {
-        const url = "https://script.google.com/macros/s/AKfycbxu-kBmw5Mj5LK_mjkoYhQKEPrr8burmZYp5czpRkVw2yofeRp3S_6pUxeNIEUrENLr/exec";
+      try {
+        // 使用您的 Web 应用 URL
+        const url = "https://script.google.com/macros/s/AKfycbzZmOPED_jiu49SGVszt0GOtgP-QVrEwxIU02Sn6jTBFdzMedMQcLsR4-g5ZaSj6F0/exec";
+        
         const response = await fetch(url, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",  // 确保使用 JSON 格式
-                "Origin": "https://player.okazu.cc", // 确保 Origin 与实际网站匹配
-            },
-            body: JSON.stringify({ name: input }),  // 将数据作为 JSON 发送
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",  // 确保使用 JSON 格式
+            "Origin": "https://player.okazu.cc", // 确保 Origin 与实际网站匹配
+          },
+          body: JSON.stringify({ name: input }),  // 将数据作为 JSON 发送
         });
 
         const result = await response.json();
         if (result.status === "success") {
-            alert("成功记录到 Google 表格！");
-            document.getElementById("inputBox").value = "";  // 清空输入框
+          alert("成功记录到 Google 表格！");
+          document.getElementById("inputBox").value = "";  // 清空输入框
         } else {
-            alert("记录失败：" + result.message);
+          alert("记录失败：" + result.message);
         }
-    } catch (error) {
+      } catch (error) {
         alert("请求失败：" + error.message);
+      }
     }
-}
+  </script>
+</head>
+<body>
+  <h1>提交数据到 Google 表格</h1>
+  <label for="inputBox">请输入数据：</label>
+  <input type="text" id="inputBox" placeholder="输入内容">
+  <button onclick="sendData()">提交</button>
+</body>
+</html>

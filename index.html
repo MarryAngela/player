@@ -79,14 +79,120 @@
             height: 24px;
             fill: white;
         }
+		
+        .ad-banner {
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            overflow: hidden;
+        }
+
+        .ad-banner img {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            display: none;
+            cursor: pointer;
+        }
+
+        .ad-banner img.active {
+            display: block;
+        }
     </style>
+	<style>
+    .ad-banner {
+        text-align: center;
+        margin-bottom: 20px;
+        position: relative;
+        width: 100%;
+        max-width: 600px;
+        height: auto;
+        overflow: hidden;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .ad-banner img {
+        width: 100%;
+        max-width: 600px;
+        height: auto;
+        display: none;
+        cursor: pointer;
+    }
+
+    .ad-banner img.active {
+        display: block; 
+    }
+</style>
+<style>
+    .ad-banner {
+        text-align: center;
+        margin-bottom: 20px;
+        position: relative;
+        width: 100%;
+        max-width: 600px;
+        height: auto;
+        overflow: hidden;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .ad-banner img {
+        width: 100%;
+        max-width: 600px;
+        height: auto;
+        display: none;
+        cursor: pointer;
+        border-radius: 8px; 
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
+    }
+
+    .ad-banner img.active {
+        display: block; 
+    }
+</style>	
     <script src="https://cdn.jsdelivr.net/npm/hls.js@1.4.0"></script>
 </head>
 
 <body>
     <div class="container">
         <h1 style="text-align: center; color: #333;">動画プレーヤー</h1>
-
+        <!-- Animated Ad Banner -->
+        <div class="ad-banner" id="ad-banner">
+            <a href="https://app.okazu.cc/" target="_blank">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgqv2E1D96va5TgbWf9BhL_IEP0XYNnw_MnVNTPYX13x12SajFTvLHF3tgKWT7YkeQez2G6sYuboKb4WCryvsXbHpJkk1PBXe5xnjmjREsNU6UchJgm0-Hj8YFD509pA7tqwxgPC7k5Mv7Oq-ytXw1JgnQRYtaAH-NKEUP0ZsVs29cJ6FhxrrIt025YZ_g/s1600/1%E6%9C%8825%E6%97%A5_-14--11-_7akRBeO6Su.gif" alt="Ad 1" class="active">
+            </a>
+            <a href="https://app.okazu.cc/" target="_blank">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhqd3dFO51SdbT0PbMbTC7X57lqeAZZG4gIkqNtVMV0JVfn_vBr2CzqilHVESIFQ0U4IBNFACnFeco_1Myn98VFFW66KCXOrDiHuV914j_XQqVm4e5YmpDiFRQPXSv1H2v5x8hQqnWAMeo5o11zoSC9Y0kHPMNU_5vV__GORGBCBpCh8LoUdcPsPooI2N0/s1600/1%E6%9C%8825%E6%97%A5_-14--8-_RMlkQ1j9Y4.gif" alt="Ad 2">
+            </a>
+            <a href="https://app.okazu.cc/" target="_blank">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhCgo8CPDBHQMqB-5QDgLF-4ikWr3HTFwK39plUqKuYKAK7HQJYUeT3AAWsOpK82ZjcbktegeLh1Y0odY5X_XSFgk4kO1WNYHNMvAaY5jGRvULa5PqG2XLihGJfMi-VodRy5PMOKVPSsmTVmyd6p8qrH78DcUbLgCrpopt4whovlCVBCOBRmpM4w-gu5LM/s1600/1%E6%9C%8825%E6%97%A5_-14--9-_7rAFqzWbYc.gif" alt="Ad 3">
+            </a>
+            <a href="https://app.okazu.cc/" target="_blank">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhxWk9EcMD35MdM5BiS1WuiXOeHLjMF4yaSR-dXQnQhNFd72lFz6CX5ru7uM6eh4xe4iKvAUorUEmMDtJLEZayQm-pPQMcQAKRm8Uy5lHMZtqWvejIN87x8C7UHXe8MN512xJLbrICJc9Ei4SrqtO2Nure5_IYtON1CmUbbySMgi5rrRDkeYZEou82tQCo/s1600/1%E6%9C%8825%E6%97%A5_-14--7-_gajbnYA_TD.gif" alt="Ad 4">
+            </a>
+            <a href="https://app.okazu.cc/" target="_blank">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiVgQADQV7AaHsOdui4gny-HPOAflqWBsrrdG7NL1v-OlV-idi1DRwO-P5bcp7LSNCQTRoqdu58hlnZGvERea3FwDB7DDcKMNHV_msbwiWVgElTp9sXuaXgYynShBDbnsJlaBYFbnDfyHI6wCRS1ut99RH7GE_3dphSQZNg4NJSlN_y_P9I5k-eAHyir04/s1600/1%E6%9C%8825%E6%97%A5_-14--5-_hYXEA_1yzp.gif" alt="Ad 5">
+            </a>
+            <a href="https://app.okazu.cc/" target="_blank">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjn4plqmGOXW9ideCXklMC8t-1BlMC3pKqAE3gY-9mmmopzo5RQaQ2yyq68i32BTMZDE1TInBKVoTkR16MBvPpAzAmV1Ar0DI4oUgHODr4AP_dEK0XBV37hNEiuGcWsbc0MCc8dm2Lvy6sMuZphgZfQtLtSGcRVgWRXg3tsM-zsh2El1jJ9JhoKZYupf7E/s1600/1%E6%9C%8825%E6%97%A5_-14--6-_QuipTbznBL.gif" alt="Ad 6">
+            </a>
+            <a href="https://app.okazu.cc/" target="_blank">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgfSnQucHI0YaV08aTxrbot98FVuwMNjSKUiCCypFDLfUrWsN35WD8VbE_anqNGwaIuZH8y4AyKZza0j5iRmcUs4KJnM5bG3x8IGIMb2H5_svNr_6Rhvj-x2GFlYHVjZzhBGdfnq47vr2_ueVma3mV9YugmsXvVuBtyJCxdL8S-7-jiB5ciq23PvFwNy1A/s1600/1%E6%9C%8825%E6%97%A5_-14--10-_JTqRZrUb_A.gif" alt="Ad 7">
+            </a>
+            <a href="https://app.okazu.cc/" target="_blank">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEifL8fnn0hQba_2yhSWNGT38AsaYc0i3hImiV0aSpw1fB2HlqTMsU-vigKwp3jWDteBUewTQGVX6QZXyQsOVesp8R2VVn0O-yOL_mpff902Xnnfv7BEC-2i6-UKy7ybmsvUeyp1yXkp9yIDR1yuzvhMK3Vu7fUdxWtg16oJnIBGWEiJ6t0sO2S3CtB2xSo/s1600/1%E6%9C%8825%E6%97%A5_-14--3-_7xnFhqYLmH.gif" alt="Ad 8">
+            </a>
+            <a href="https://app.okazu.cc/" target="_blank">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgEjX0Q-7YNOpv37swLg67QHnufBjvjSopVoSG-OjIBXnzriPpRnZmTnLK6NWDbWjNaDHHmqekzA45KwO2ztCwN3G4l4cjakLLFjvZ9LO_Z1uWzdUDH3BEQfGK_wsW-XrXo3iGfv-1SOb_Ia-3Yl22kTXACoJ0s8rLGRmnu-miCCL1mdGjcqsDSGF-FjsQ/s1600/1%E6%9C%8825%E6%97%A5_-14--12-_gP6Cbu8ESs.gif" alt="Ad 9">
+            </a>
+            <a href="https://app.okazu.cc/" target="_blank">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiVH_vsL5T3yrFqzAIaEhbFNpu_KQx9h4LK-KCZc0IKzPg56rXlRhn-ioBM-sHUxtRrIvNm9voDWmaf3KA_ecmUWqVJ9Edw1oTJDDZnqJKTA9qA3qpN34sixCv0EtjoTHvNF_qrHTinnVGlhNO9zxwZoBBZl5DyEUViHtcRj8NrPWmzcMuju2nX4Hh0URk/s1600/1%E6%9C%8825%E6%97%A5_-14--13-_Vb0txX5Hmg.gif" alt="Ad 10">
+            </a>
+        </div>
         <!-- 入力フォームとボタン -->
         <div class="form">
             <input type="text" id="url-input" placeholder="動画URLを入力してください">
@@ -103,7 +209,7 @@
     </div>
 
     <script>
-        const defaultUrl = "https://video.twimg.com/amplify_video/1877925947267338240/pl/I_8Sl7qJqfayxcpV.m3u8?tag=16"; // デフォルトのURL
+        const defaultUrl = "https://video.twimg.com/amplify_video/1883385004329484288/pl/drDM5EkH9z7FYcvq.m3u8?tag=16"; // デフォルトのURL
 
         function getM3U8Url() {
             const urlParams = window.location.search;
@@ -187,6 +293,21 @@
             document.getElementById('url-input').value = defaultUrl;
             initializePlayer(defaultUrl); // デフォルトURLで動画を再生
         }
+		
+        // 広告スライダー
+        function startAdCarousel() {
+            const banners = document.querySelectorAll('.ad-banner img');
+            let currentIndex = 0;
+
+            setInterval(() => {
+                banners[currentIndex].classList.remove('active');
+                currentIndex = (currentIndex + 1) % banners.length;
+                banners[currentIndex].classList.add('active');
+            }, 3000); // 3秒ごとに広告を切り替える
+        }
+
+        // スライダー機能を起動する
+        startAdCarousel();
     </script>
         <!-- スライド5 - 画像広告とハイパーリンク -->
      <script
@@ -207,6 +328,7 @@
 
   gtag('config', 'G-QTWR0BQEZE');
 </script>
+
 </body>
 
 </html>
